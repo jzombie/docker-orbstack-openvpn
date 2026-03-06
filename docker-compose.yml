@@ -10,9 +10,17 @@ services:
       - NET_ADMIN
       - MKNOD
     ports:
-      - 943:943
-      - 443:443
-      - 1194:1194/udp
+      # 943: The web UI for Admin and User portals.
+      # Mapped exclusively to 127.0.0.1 on the Mac for security (access via SSH tunnel).
+      - 127.0.0.1:943:943
+
+      # 8443: Our custom public TCP port for VPN client connections.
+      # Replaces the default port 443 so we don't block standard secure web traffic.
+      - 8443:8443
+
+      # 1194/UDP: The standard OpenVPN UDP port.
+      # Still exposed but susceptible to Mac/OrbStack NAT DNS packet dropping bugs without custom routes.
+      # - 1194:1194/udp
     volumes:
       - ./openvpn-data:/openvpn
     restart: unless-stopped
