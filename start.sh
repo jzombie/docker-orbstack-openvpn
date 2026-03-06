@@ -33,6 +33,10 @@ docker exec openvpn-as /usr/local/openvpn_as/scripts/sacli -k vpn.daemon.tcp.por
 docker exec openvpn-as /usr/local/openvpn_as/scripts/sacli -k vpn.server.daemon.tcp.port -v 8443 ConfigPut 2>/dev/null || true
 docker exec openvpn-as /usr/local/openvpn_as/scripts/sacli -k vpn.server.port_share.port -v 8443 ConfigPut 2>/dev/null || true
 
+# Strip UDP endpoints from the generated .ovpn client profile so it immediately connects via TCP
+docker exec openvpn-as /usr/local/openvpn_as/scripts/sacli -k vpn.client.routing.propns -v false ConfigPut 2>/dev/null || true
+docker exec openvpn-as /usr/local/openvpn_as/scripts/sacli -k vpn.server.routing.propns -v false ConfigPut 2>/dev/null || true
+
 docker exec openvpn-as /usr/local/openvpn_as/scripts/sacli start >/dev/null 2>&1
 
 
