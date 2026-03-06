@@ -1,10 +1,14 @@
-# My VPN (OpenVPN Access Server)
+# OrbStack OpenVPN (OpenVPN Access Server)
+
+Using a Mac as a VPN server.
+
+Literally _"works on my machine."_  No clue if it will work without modification on yours.
 
 ## Start / stop
 
 ```bash
 # Start
-docker compose up -d
+./start.sh
 
 # Stop
 docker compose down
@@ -63,6 +67,5 @@ The VPN uses **port 8443/TCP** (or **1194/UDP** optionally, but UDP requires cus
 ## Update
 
 ```bash
-docker compose pull && docker compose up -d
+docker compose pull && ./start.sh
 ```
-
